@@ -1,12 +1,12 @@
 import { greeting, logout, user } from './data.js';
-//import { button } from '../elementos/objetos/button.js';
-import button from '../elementos/objetos/button.js';
+import { button } from '../elementos/objetos/button.js';
 import { input } from '../elementos/objetos/input.js';
-import link from '../elementos/objetos/link.js';
+import { link } from '../elementos/objetos/link.js';
 import icon from '../elementos/objetos/icon.js';
-import textarea from '../elementos/objetos/textarea.js';
+import { textarea } from '../elementos/objetos/textarea.js';
 
-
+// ${textarea({ id: "name", type: "text", placeholder: "Diga Oi!" })} <textarea rows="52" cols="52" id="name" type="text"></textarea>
+//    ${icon('churrasqueira')}
 export default () => {
   const container = document.createElement('div');
 
@@ -19,7 +19,6 @@ export default () => {
     ${button({ id: "greeting-btn", class: "greeting-btn", name: "Compartilhar" })}
     </div>
     </form>
-
     <div id='greeting-message'></div>
     <div id="firebase-auth-container"></div>
     <div id='message'></div>
@@ -38,16 +37,8 @@ export default () => {
 
   const greetingBtn = container.querySelector('#greeting-btn');
   const greetingMessage = container.querySelector('#greeting-message');
+  const posts = container.querySelector("#posts")
 
-  const form = document.createElement('form')
-  form.classList.add("box")
-  form.innerHTML = textBox.element
-  form.appendChild(spaceButtons)
-  container.appendChild(form)
-
-  const greetingMessage = document.createElement('div')
-  // greetingMessage.classList.add("greeting-message");
-  container.appendChild(greetingMessage)
 
   greetingBtn.addEventListener('click', (event) => {
     event.preventDefault();
@@ -83,6 +74,8 @@ export default () => {
       });
     })
   }
+
+
 
   function likeClass(post) {
     post.data().liked.forEach(a => {
@@ -156,78 +149,52 @@ export default () => {
 
 
 
-  container.querySelector(cherry.id1).addEventListener("click", () => {
-    container.querySelector(cherry.id2).style.display = "block"
-    container.querySelector(cherry.id1).style.display = "none"
-  })
-  container.querySelector(cherry.id2).addEventListener("click", () => {
-    container.querySelector(cherry.id1).style.display = "block"
-    container.querySelector(cherry.id2).style.display = "none"
-  })
-
-
-  // container.appendChild(icon('cereja'))
-  // container.appendChild(icon('churrasqueira'))
-  // container.appendChild(icon('cafeteira'))
-  // container.appendChild(icon('comida'))
-  // container.appendChild(icon('luva'))
-  // container.appendChild(icon('talher'))
-  // container.appendChild(icon('tomate'))
-  // container.appendChild(icon('caneca'))
-
-
-  const textBoxElement = container.querySelector(textBox.id)
-
-  container.querySelector(greetingBtn.id).addEventListener("click", () => {
-    event.preventDefault();
-    greetingMessage.innerHTML = greeting(textBoxElement.value);
-  });
 
 
 
-  //   let like = post.data().liked
-  //    console.log(like)
-  // container.querySelector(`#like1${post.id}`).addEventListener("click", () => {
-  //   var database = firebase.database();
-  // let like = post.data().liked
-  // console.log(like)
-  //    like.push(firebase.auth().currentUser.uid)
-  //   console.log(like)
-  //   like = like.push(firebase.auth().currentUser.uid)
-  // console.log(like)
-  //   console.log(firebase.auth().currentUser.uid)
-  // container.querySelector(`#like1${post.id}`).classList.add("disappear")
-  // container.querySelector(`#like2${post.id}`).classList.remove("disappear")
-  // console.log(post.data().liked)
-  // firebase.firestore().collection("posts").doc(`${post.id}`).update({
-  //     liked: like
-  // })
-  // })
+  // //   let like = post.data().liked
+  // //    console.log(like)
+  // // container.querySelector(`#like1${post.id}`).addEventListener("click", () => {
+  // //   var database = firebase.database();
+  // // let like = post.data().liked
+  // // console.log(like)
+  // //    like.push(firebase.auth().currentUser.uid)
+  // //   console.log(like)
+  // //   like = like.push(firebase.auth().currentUser.uid)
+  // // console.log(like)
+  // //   console.log(firebase.auth().currentUser.uid)
+  // // container.querySelector(`#like1${post.id}`).classList.add("disappear")
+  // // container.querySelector(`#like2${post.id}`).classList.remove("disappear")
+  // // console.log(post.data().liked)
+  // // firebase.firestore().collection("posts").doc(`${post.id}`).update({
+  // //     liked: like
+  // // })
+  // // })
 
-  //    container.querySelector(`#like2${post.id}`).addEventListener("click", () => {
-  //  let like = post.data().liked
-  //  like.pull(firebase.auth().currentUser.uid)
+  // //    container.querySelector(`#like2${post.id}`).addEventListener("click", () => {
+  // //  let like = post.data().liked
+  // //  like.pull(firebase.auth().currentUser.uid)
 
-  // for (let i in like) {
-  //     if (like[i] === firebase.auth().currentUser.uid) {
-  //         like.splice(i, 1)
-  //     }
-  // }
+  // // for (let i in like) {
+  // //     if (like[i] === firebase.auth().currentUser.uid) {
+  // //         like.splice(i, 1)
+  // //     }
+  // // }
 
-  //     //     // container.querySelector(`#like2${post.id}`).classList.add("disappear")
-  //     //     // container.querySelector(`#like1${post.id}`).classList.remove("disappear")
-  //     firebase.firestore().collection("posts").doc(`${post.id}`).update({
-  //         liked: [].push(firebase.auth().currentUser.uid)
-  //     })
+  // //     //     // container.querySelector(`#like2${post.id}`).classList.add("disappear")
+  // //     //     // container.querySelector(`#like1${post.id}`).classList.remove("disappear")
+  // //     firebase.firestore().collection("posts").doc(`${post.id}`).update({
+  // //         liked: [].push(firebase.auth().currentUser.uid)
+  // //     })
 
-  //         //     loadPost()
+  // //         //     loadPost()
 
-  //   })
+  // //   })
 
 
-  //  firebase.firestore().collection("posts").doc(`${post.id}`).update({
-  //         liked: like
-  //     })
+  // //  firebase.firestore().collection("posts").doc(`${post.id}`).update({
+  // //         liked: like
+  // //     })
 
 
 
