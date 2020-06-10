@@ -8,68 +8,238 @@ import textarea from '../elementos/objetos/textarea.js';
 
 
 export default () => {
-    const container = document.createElement('div');
-    container.classList.add("container");
+  const container = document.createElement('div');
 
-    const greetingBtn = button({ id: "greeting-btn", class: "greeting-btn", name: "Compartilhar" })
-    const cherry = icon('cereja')
-    const textBox = textarea({ id: "name", type: "text", size: "500", placeholder: "Diga Oi!" })
-    const logout = link({ href: "#", id: "buttonOut", name: "Logout" })
+  container.classList.add("container");
+  container.innerHTML = `
+    <div id="nameUser"></div>
+    <form class="box">
+    ${textarea({ id: "post-text", type: "text", size: "500", placeholder: "Diga Oi!" })}
+    <div class="space-buttons">
+    ${button({ id: "greeting-btn", class: "greeting-btn", name: "Compartilhar" })}
+    </div>
+    </form>
 
-    container.appendChild(icon('cereja'))
-    // container.appendChild(icon('churrasqueira'))
-    // container.appendChild(icon('cafeteira'))
-    // container.appendChild(icon('comida'))
-    // container.appendChild(icon('luva'))
-    // container.appendChild(icon('talher'))
-    // container.appendChild(icon('tomate'))
-    // container.appendChild(icon('caneca'))
+    <div id='greeting-message'></div>
+    <div id="firebase-auth-container"></div>
+    <div id='message'></div>
+    <ul id="posts"></ul>
+    ${link({ href: "#", id: "buttonOut", name: "Logout" })}`;
 
-
-    const form = document.createElement('form')
-    form.classList.add("box")
-    form.innerHTML = textBox.element
-    form.appendChild(spaceButtons)
-    container.appendChild(form)
-
-    const greetingMessage = document.createElement('div')
-    // greetingMessage.classList.add("greeting-message");
-    container.appendChild(greetingMessage)
-
-    const back = document.createElement('div')
-    back.innerHTML += logout.element
-    container.appendChild(back)
+  // container.appendChild(icon('cereja'))
+  // container.appendChild(icon('churrasqueira'))
+  // container.appendChild(icon('cafeteira'))
+  // container.appendChild(icon('comida'))
+  // container.appendChild(icon('luva'))
+  // container.appendChild(icon('talher'))
+  // container.appendChild(icon('tomate'))
+  // container.appendChild(icon('caneca'))
 
 
+  const greetingBtn = container.querySelector('#greeting-btn');
+  const greetingMessage = container.querySelector('#greeting-message');
 
-    container.querySelector(cherry.id1).addEventListener("click", () => {
-        container.querySelector(cherry.id2).style.display = "block"
-        container.querySelector(cherry.id1).style.display = "none"
+  const form = document.createElement('form')
+  form.classList.add("box")
+  form.innerHTML = textBox.element
+  form.appendChild(spaceButtons)
+  container.appendChild(form)
+
+  const greetingMessage = document.createElement('div')
+  // greetingMessage.classList.add("greeting-message");
+  container.appendChild(greetingMessage)
+
+  greetingBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const postText = container.querySelector('#post-text').value;
+    const post = {
+      name: firebase.auth().currentUser.displayName,
+      text: postText,
+      user_id: firebase.auth().currentUser.uid,
+      likes: 0,
+      liked: [],
+      comments: []
+    }
+    const postsCollection = firebase.firestore().collection("posts")
+    postsCollection.add(post).then(res => {
+      container.querySelector("#post-text").value = ""
+      loadPost()
     })
-    container.querySelector(cherry.id2).addEventListener("click", () => {
-        container.querySelector(cherry.id1).style.display = "block"
-        container.querySelector(cherry.id2).style.display = "none"
+  });
+
+  function loadPost() {
+    const postsCollection = firebase.firestore().collection("posts")
+    container.querySelector("#posts").innerHTML = "Carregando..."
+    postsCollection.get().then(snap => {
+      container.querySelector("#posts").innerHTML = ""
+      snap.forEach(post => {
+        addPosts(post)
+      });
+      snap.forEach(post => {
+        like(post)
+      });
+      snap.forEach(post => {
+        likeClass(post)
+      });
+    })
+  }
+
+  function likeClass(post) {
+    post.data().liked.forEach(a => {
+      if (a === firebase.auth().currentUser.uid) {
+        console.log("curtiu")
+        container.querySelector(`#like1${post.id}`).classList.add("disappear")
+        container.querySelector(`#like2${post.id}`).classList.remove("disappear")
+      } else {
+        console.log("não curtiu")
+        container.querySelector(`#like2${post.id}`).classList.add("disappear")
+        container.querySelector(`#like1${post.id}`).classList.remove("disappear")
+      }
     })
 
+  }
 
-    // container.appendChild(icon('cereja'))
-    // container.appendChild(icon('churrasqueira'))
-    // container.appendChild(icon('cafeteira'))
-    // container.appendChild(icon('comida'))
-    // container.appendChild(icon('luva'))
-    // container.appendChild(icon('talher'))
-    // container.appendChild(icon('tomate'))
-    // container.appendChild(icon('caneca'))
+  function addPosts(post) {
+
+    const postsTemplete = `
+        <li id="li${post.id}">
+            ${post.data().name}: ${post.data().text} ${icon({ name: 'luva', id: post.id })}${post.data().likes}  
+        </li>
+        `
+    container.querySelector("#posts").innerHTML += postsTemplete
+  }
 
 
-    const textBoxElement = container.querySelector(textBox.id)
+  function like(post) {
+    container.querySelector(`#li${post.id}`).addEventListener("click", (event) => {
+      event.preventDefault();
+      let likes = post.data().likes
+      let likeUser = post.data().liked
+      //  console.log(likes)
+      //console.log(likeUser)
+      // console.log("likes" + likes)
+      let valid = 1
 
-    container.querySelector(greetingBtn.id).addEventListener("click", () => {
-        event.preventDefault();
-        greetingMessage.innerHTML = greeting(textBoxElement.value);
+      for (let i in likeUser) {
+        //     console.log("Aqui")
+        //     console.log(likeUser[i], firebase.auth().currentUser.uid)
+        if (likeUser[i] === firebase.auth().currentUser.uid) {
+          console.log(likeUser)
+          likeUser.splice(i, 1)
+          console.log("deslike")
+          console.log(likeUser)
+          valid = -1
+        }
+      }
+      if (valid === 1) {
+        console.log(likeUser)
+        console.log("like")
+        likeUser.push(firebase.auth().currentUser.uid)
+        console.log(likeUser)
+        //  console.log("user" + likeUser)
+      }
+      //else {
+      //     // console.log(valid)
+      // }
+      firebase.firestore().collection("posts").doc(`${post.id}`).update({
+        liked: likeUser
+      })
+      // console.log(likes)
+      firebase.firestore().collection("posts").doc(`${post.id}`).update({
+        likes: likes + valid
+      })
+      // console.log("likes" + likes)
+      //location.reload()
+    })
+
+  }
+
+
+
+  container.querySelector(cherry.id1).addEventListener("click", () => {
+    container.querySelector(cherry.id2).style.display = "block"
+    container.querySelector(cherry.id1).style.display = "none"
+  })
+  container.querySelector(cherry.id2).addEventListener("click", () => {
+    container.querySelector(cherry.id1).style.display = "block"
+    container.querySelector(cherry.id2).style.display = "none"
+  })
+
+
+  // container.appendChild(icon('cereja'))
+  // container.appendChild(icon('churrasqueira'))
+  // container.appendChild(icon('cafeteira'))
+  // container.appendChild(icon('comida'))
+  // container.appendChild(icon('luva'))
+  // container.appendChild(icon('talher'))
+  // container.appendChild(icon('tomate'))
+  // container.appendChild(icon('caneca'))
+
+
+  const textBoxElement = container.querySelector(textBox.id)
+
+  container.querySelector(greetingBtn.id).addEventListener("click", () => {
+    event.preventDefault();
+    greetingMessage.innerHTML = greeting(textBoxElement.value);
+  });
+
+
+
+  //   let like = post.data().liked
+  //    console.log(like)
+  // container.querySelector(`#like1${post.id}`).addEventListener("click", () => {
+  //   var database = firebase.database();
+  // let like = post.data().liked
+  // console.log(like)
+  //    like.push(firebase.auth().currentUser.uid)
+  //   console.log(like)
+  //   like = like.push(firebase.auth().currentUser.uid)
+  // console.log(like)
+  //   console.log(firebase.auth().currentUser.uid)
+  // container.querySelector(`#like1${post.id}`).classList.add("disappear")
+  // container.querySelector(`#like2${post.id}`).classList.remove("disappear")
+  // console.log(post.data().liked)
+  // firebase.firestore().collection("posts").doc(`${post.id}`).update({
+  //     liked: like
+  // })
+  // })
+
+  //    container.querySelector(`#like2${post.id}`).addEventListener("click", () => {
+  //  let like = post.data().liked
+  //  like.pull(firebase.auth().currentUser.uid)
+
+  // for (let i in like) {
+  //     if (like[i] === firebase.auth().currentUser.uid) {
+  //         like.splice(i, 1)
+  //     }
+  // }
+
+  //     //     // container.querySelector(`#like2${post.id}`).classList.add("disappear")
+  //     //     // container.querySelector(`#like1${post.id}`).classList.remove("disappear")
+  //     firebase.firestore().collection("posts").doc(`${post.id}`).update({
+  //         liked: [].push(firebase.auth().currentUser.uid)
+  //     })
+
+  //         //     loadPost()
+
+  //   })
+
+
+  //  firebase.firestore().collection("posts").doc(`${post.id}`).update({
+  //         liked: like
+  //     })
+
+
+
+  function profile() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      container.querySelector("#nameUser").innerHTML = firebase.auth().currentUser.displayName
     });
+  }
+  user();
+  loadPost();
+  profile();
 
-    user();
 
-    return container;
+  return container;
 };
