@@ -65,7 +65,7 @@ export default () => {
     })}
       </figure>
       <h2>${userData.userName}</h2>
-      <h3>${userData.profession}</h3>
+      <h3>Profissão: ${userData.profession}</h3>
       <h4 id='print-age'></h4>
       <form class='form-profile'>
         ${button({ name: 'Alterar dados', id: 'change-profile' })}
