@@ -4,10 +4,10 @@ export const login = (email, password, printErrorLogin, callback) => {
     firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then(function() {
+        .then(function () {
             callback();
         })
-        .catch(function(error) {
+        .catch(function (error) {
             printErrorLogin(errorHandling(error.code));
         });
 };
@@ -19,7 +19,7 @@ export const loginGoogle = (callback) => {
     firebase
         .auth()
         .signInWithPopup(provider)
-        .then(function(result) {
+        .then(function (result) {
             if (result.additionalUserInfo.isNewUser) {
                 const user = {
                     userUid: firebase.auth().currentUser.uid,
@@ -33,7 +33,7 @@ export const loginGoogle = (callback) => {
                     .firestore()
                     .collection('users')
                     .add(user)
-                    .then(function() {
+                    .then(function () {
                         callback();
                     });
             } else {
@@ -41,3 +41,4 @@ export const loginGoogle = (callback) => {
             }
         });
 };
+

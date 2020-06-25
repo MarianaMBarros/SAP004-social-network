@@ -1,12 +1,12 @@
 import {
-    createPost,
-    logout,
-    loadPost,
-    updateCollection,
-    postDelete,
-    filePost,
-    loadUserPost,
-    isLogin,
+  createPost,
+  logout,
+  loadPost,
+  updateCollection,
+  postDelete,
+  filePost,
+  loadUserPost,
+  isLogin
 } from './data.js';
 import { button } from '../elementos/objetos/button.js';
 import { link } from '../elementos/objetos/link.js';
@@ -15,11 +15,11 @@ import { textarea } from '../elementos/objetos/textarea.js';
 import { image } from '../elementos/objetos/image.js';
 
 export default () => {
-    const container = document.createElement('div');
+  const container = document.createElement('div');
 
-    container.classList.add('container-home');
+  container.classList.add('container-home');
 
-    container.innerHTML = `
+  container.innerHTML = `
 
     <div id="modal" class="modal disappear">
       <div class="modal-content">
@@ -27,10 +27,10 @@ export default () => {
         <h2>Tem certeza que deseja deletar?</h2>
         ${button({ name: 'Sim', id: 'delete-yes', class: 'close-modal' })}
         ${button({
-          name: 'Cancelar',
-          id: 'delete-no',
-          class: 'close-modal',
-        })}
+    name: 'Cancelar',
+    id: 'delete-no',
+    class: 'close-modal',
+  })}
       </div>
     </div>
     <header>
@@ -42,37 +42,37 @@ export default () => {
           <span></span>
           <ul id="menu">
           <li>${link({
-            href: '#profile',
-            name: 'Perfil',
-            title: 'perfil',
-            target: '_self',
-          })}</li>
+    href: '#profile',
+    name: 'Perfil',
+    title: 'perfil',
+    target: '_self',
+  })}</li>
           <li>${link({
-            id: 'logout-btn',
-            name: 'Sair',
-            title: 'deslogar',
-            target: '_self',
-          })}</li>
+    id: 'logout-btn',
+    name: 'Sair',
+    title: 'deslogar',
+    target: '_self',
+  })}</li>
           </ul>
         </div>
       </nav>
       <h1> &lt; Umâmi &gt; </h1> 
       <figure>
         ${image({
-          src: '/pages/elementos/imagens/logo.png',
-          class: 'img-header',
-          alt: 'logo-umâmi',
-        })}
+    src: '/pages/elementos/imagens/logo.png',
+    class: 'img-header',
+    alt: 'logo-umâmi',
+  })}
       </figure>
     </header>
     <section class="timeline">
       <div class="profile">
         <figure>
           ${image({
-            id: 'img-profile',
-            class: 'img-profile',
-            alt: 'foto-perfil',
-          })}
+    id: 'img-profile',
+    class: 'img-profile',
+    alt: 'foto-perfil',
+  })}
         </figure>
         <div>
         <h3 id="nameUser"></h3>
@@ -80,36 +80,36 @@ export default () => {
         </div>
       </div>
       ${image({
-        src: '/pages/elementos/imagens/fundo.png',
-        class: 'disappear image-back',
-      })}
+    src: '/pages/elementos/imagens/fundo.png',
+    class: 'disappear image-back',
+  })}
       <div class="posts">
         <form class="box">
           ${textarea({
-            id: 'post-text',
-            type: 'text',
-            size: '500',
-            placeholder: 'Compartilhe sua publicação aqui!',
-            value: null,
-          })}
+    id: 'post-text',
+    type: 'text',
+    size: '500',
+    placeholder: 'Compartilhe sua publicação aqui!',
+    value: null,
+  })}
           ${image({
-            id: 'icon-variable-loker',
-            src: './pages/elementos/icones/cadeado-1.png',
-            class: 'icon icon-left',
-          })}
+    id: 'icon-variable-loker',
+    src: './pages/elementos/icones/cadeado-1.png',
+    class: 'icon icon-left',
+  })}
           <img id="photo" class="img-post"/>
           ${icon({
-            name: 'talher',
-            id: 'remove-photo',
-            class: 'disappear icon-left',
-          })}                    
+    name: 'talher',
+    id: 'remove-photo',
+    class: 'disappear icon-left',
+  })}                    
           <div class="send-post">
             <input type="file" id= "file" accept= "image/*" class="icon-left">
             <label for="file"> ${image({
-              id: 'img-upload',
-              class: 'icon icon-left',
-              src: './pages/elementos/icones/img-1.png',
-            })}</label>                    
+    id: 'img-upload',
+    class: 'icon icon-left',
+    src: './pages/elementos/icones/img-1.png',
+  })}</label>                    
             ${button({ id: 'post-btn', class: 'post-btn', name: 'Postar' })}
           </div>
         </form>
@@ -120,241 +120,241 @@ export default () => {
       <h5>Desenvolvido por:
         <div>
           ${link({
-            href: '',
-            name: 'Camila Cunha',
-            class: 'link-footer',
-            title: 'Camila Cunha',
-            target: '_blank',
-          })}
+    href: '',
+    name: 'Camila Cunha',
+    class: 'link-footer',
+    title: 'Camila Cunha',
+    target: '_blank',
+  })}
             <span> 
             ${link({
-              href: 'https://github.com/camilagerarde',
-              name: icon({ name: 'github', class: 'icon-footer' }),
-              class: 'link-footer',
-              title: 'Camila Cunha',
-              target: '_blank',
-            })}  
+    href: 'https://github.com/camilagerarde',
+    name: icon({ name: 'github', class: 'icon-footer' }),
+    class: 'link-footer',
+    title: 'Camila Cunha',
+    target: '_blank',
+  })}  
             ${link({
-              href: 'https://www.linkedin.com/in/camila-gerarde/',
-              name: icon({ name: 'linkedin', class: 'icon-footer' }),
-              class: 'link-footer',
-              title: 'Camila Cunha',
-              target: '_blank',
-            })}
+    href: 'https://www.linkedin.com/in/camila-gerarde/',
+    name: icon({ name: 'linkedin', class: 'icon-footer' }),
+    class: 'link-footer',
+    title: 'Camila Cunha',
+    target: '_blank',
+  })}
             </span>
           </div>
         <div>
           ${link({
-            href: '',
-            name: 'Gabriela Piovezan',
-            class: 'link-footer',
-            title: 'Gabriela Piovezan',
-            target: '_blank',
-          })}
+    href: '',
+    name: 'Gabriela Piovezan',
+    class: 'link-footer',
+    title: 'Gabriela Piovezan',
+    target: '_blank',
+  })}
           <span>
             ${link({
-              href: 'https://github.com/gabrielapiovezan/',
-              name: icon({ name: 'github', class: 'icon-footer' }),
-              class: 'link-footer',
-              title: 'Gabriela Piovezan',
-              target: '_blank',
-            })}
+    href: 'https://github.com/gabrielapiovezan/',
+    name: icon({ name: 'github', class: 'icon-footer' }),
+    class: 'link-footer',
+    title: 'Gabriela Piovezan',
+    target: '_blank',
+  })}
             ${link({
-              href: 'https://www.linkedin.com/in/gabrielapiovezan/',
-              name: icon({ name: 'linkedin', class: 'icon-footer' }),
-              class: 'link-footer',
-              title: 'Gabriela Piovezan',
-              target: '_blank',
-            })}</div>
+    href: 'https://www.linkedin.com/in/gabrielapiovezan/',
+    name: icon({ name: 'linkedin', class: 'icon-footer' }),
+    class: 'link-footer',
+    title: 'Gabriela Piovezan',
+    target: '_blank',
+  })}</div>
           </span>
         <div>
           ${link({
-            href: 'https://marianambarros.github.io/portifolio/',
-            name: 'Mariana Barros',
-            class: 'link-footer',
-            title: 'Mariana Barros',
-            target: '_blank',
-          })}
+    href: 'https://marianambarros.github.io/portifolio/',
+    name: 'Mariana Barros',
+    class: 'link-footer',
+    title: 'Mariana Barros',
+    target: '_blank',
+  })}
          <span>
             ${link({
-              href: 'https://github.com/MarianaMBarros',
-              name: icon({ name: 'github', class: 'icon-footer' }),
-              class: 'link-footer',
-              title: 'Mariana Barros',
-              target: '_blank',
-            })}
+    href: 'https://github.com/MarianaMBarros',
+    name: icon({ name: 'github', class: 'icon-footer' }),
+    class: 'link-footer',
+    title: 'Mariana Barros',
+    target: '_blank',
+  })}
             ${link({
-              href: 'https://www.linkedin.com/in/marianambarros/',
-              name: icon({ name: 'linkedin', class: 'icon-footer' }),
-              class: 'link-footer',
-              title: 'Mariana Barros',
-              target: '_blank',
-            })}
+    href: 'https://www.linkedin.com/in/marianambarros/',
+    name: icon({ name: 'linkedin', class: 'icon-footer' }),
+    class: 'link-footer',
+    title: 'Mariana Barros',
+    target: '_blank',
+  })}
           </span>
         </div>  
         </h5>    
     </footer>
     `;
 
-    const createNewPost = () => {
-        let privacy = false;
-        container.querySelector('#icon-variable-loker').addEventListener('click', () => {
-            privacy === false ? (privacy = true) : (privacy = false);
-            likeClass('loker', privacy);
-        });
-        container.querySelector('#post-btn').addEventListener('click', (event) => {
-            event.preventDefault();
-            console.log(container.querySelector('#file').value);
-            if (container.querySelector(`#post-text`).value || container.querySelector('#file').value) {
-                const fileInpxut = container.querySelector('#file');
-                if (fileInpxut.files[0]) {
-                    filePost(fileInpxut.files[0], `images${fileInpxut.files[0].name}`, saveFirebase, privacy);
-                } else {
-                    saveFirebase(null, privacy);
-                }
-            }
-        });
-    };
-
-    const saveFirebase = (urlFile, privacy) => {
-        const postText = container.querySelector('#post-text');
-        const post = {
-            url_file: urlFile ?
-                `https://firebasestorage.googleapis.com/v0/b/social-networt.appspot.com/o/${urlFile}?alt=media` :
-                null,
-            name: firebase.auth().currentUser.displayName,
-            photo: firebase.auth().currentUser.photoURL || './pages/elementos/imagens/chefe.png',
-            text: postText.value || '',
-            user_id: firebase.auth().currentUser.uid,
-            liked: [],
-            comments: [],
-            time: firebase.firestore.FieldValue.serverTimestamp(),
-            date: new Date().getTime(),
-            privacy: privacy,
-        };
-        postText.value = '';
-        clearPostBox();
-        createPost(post);
-    };
-    const clearPostBox = () => {
-        container.querySelector('#file').value = '';
-        container.querySelector('#photo').src = '';
-        container.querySelector('#img-upload').src = './pages/elementos/icones/img-1.png';
-        container.querySelector('#iconremove-photo').classList.add('disappear');
-    };
-    container.querySelector('#logout-btn').addEventListener('click', (event) => {
-        event.preventDefault();
-        logout();
-        window.location.hash = '';
+  const createNewPost = () => {
+    let privacy = false;
+    container.querySelector('#icon-variable-loker').addEventListener('click', () => {
+      privacy === false ? (privacy = true) : (privacy = false);
+      likeClass('loker', privacy);
     });
-
-    const likeClass = (id, valid) => {
-        const icon = container.querySelector(`#icon-variable-${id}`);
-        let adress = icon.src;
-        valid === true ? (adress = adress.replace('1', '2')) : (adress = adress.replace('2', '1'));
-        icon.src = adress;
-    };
-
-    const renderImg = (url_file) => {
-        return url_file ? `${image({ src: url_file, class: 'img-post' })}` : '';
-    };
-
-    container.querySelector('#file').addEventListener('change', (event) => {
-        event.preventDefault();
-        const output = container.querySelector('#photo');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        container.querySelector('#iconremove-photo').classList.remove('disappear');
-        output.onload = () => {
-            URL.revokeObjectURL(output.src);
-        };
-        container.querySelector('#img-upload').src = './pages/elementos/icones/img-2.png';
+    container.querySelector('#post-btn').addEventListener('click', (event) => {
+      event.preventDefault();
+      console.log(container.querySelector('#file').value);
+      if (container.querySelector(`#post-text`).value || container.querySelector('#file').value) {
+        const fileInpxut = container.querySelector('#file');
+        if (fileInpxut.files[0]) {
+          filePost(fileInpxut.files[0], `images${fileInpxut.files[0].name}`, saveFirebase, privacy);
+        } else {
+          saveFirebase(null, privacy);
+        }
+      }
     });
+  };
 
-    container.querySelector('#iconremove-photo').addEventListener('click', (event) => {
-        event.preventDefault();
-        clearPostBox();
-    });
-
-    const dateAndHour = (date) => {
-        const options = { dateStyle: 'short', timeStyle: 'short' };
-        return date.toLocaleDateString('pt-BR', options);
+  const saveFirebase = (urlFile, privacy) => {
+    const postText = container.querySelector('#post-text');
+    const post = {
+      url_file: urlFile ?
+        `https://firebasestorage.googleapis.com/v0/b/social-networt.appspot.com/o/${urlFile}?alt=media` :
+        null,
+      name: firebase.auth().currentUser.displayName,
+      photo: firebase.auth().currentUser.photoURL || './pages/elementos/imagens/chefe.png',
+      text: postText.value || '',
+      user_id: firebase.auth().currentUser.uid,
+      liked: [],
+      comments: [],
+      time: firebase.firestore.FieldValue.serverTimestamp(),
+      date: new Date().getTime(),
+      privacy: privacy,
     };
+    postText.value = '';
+    clearPostBox();
+    createPost(post);
+  };
+  const clearPostBox = () => {
+    container.querySelector('#file').value = '';
+    container.querySelector('#photo').src = '';
+    container.querySelector('#img-upload').src = './pages/elementos/icones/img-1.png';
+    container.querySelector('#iconremove-photo').classList.add('disappear');
+  };
+  container.querySelector('#logout-btn').addEventListener('click', (event) => {
+    event.preventDefault();
+    logout();
+    window.location.hash = '';
+  });
 
-    const addPosts = (post) => {
-            const date = new Date(post.data().date);
+  const likeClass = (id, valid) => {
+    const icon = container.querySelector(`#icon-variable-${id}`);
+    let adress = icon.src;
+    valid === true ? (adress = adress.replace('1', '2')) : (adress = adress.replace('2', '1'));
+    icon.src = adress;
+  };
 
-            const postsTemplate = `
+  const renderImg = (url_file) => {
+    return url_file ? `${image({ src: url_file, class: 'img-post' })}` : '';
+  };
+
+  container.querySelector('#file').addEventListener('change', (event) => {
+    event.preventDefault();
+    const output = container.querySelector('#photo');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    container.querySelector('#iconremove-photo').classList.remove('disappear');
+    output.onload = () => {
+      URL.revokeObjectURL(output.src);
+    };
+    container.querySelector('#img-upload').src = './pages/elementos/icones/img-2.png';
+  });
+
+  container.querySelector('#iconremove-photo').addEventListener('click', (event) => {
+    event.preventDefault();
+    clearPostBox();
+  });
+
+  const dateAndHour = (date) => {
+    const options = { dateStyle: 'short', timeStyle: 'short' };
+    return date.toLocaleDateString('pt-BR', options);
+  };
+
+  const addPosts = (post) => {
+    const date = new Date(post.data().date);
+
+    const postsTemplate = `
       <div li id = "li${post.id}" class="post" >
         <div class="user-post">
           <div class='flex-row'>
             <figure>
               ${image({
-                id: `photo${post.id}`,
-                class: 'img-profile-post',
-                alt: 'foto-usuário',
-                src: `${post.data().photo}`,
-              })}
+      id: `photo${post.id}`,
+      class: 'img-profile-post',
+      alt: 'foto-usuário',
+      src: `${post.data().photo}`,
+    })}
             </figure>
             <div>
               <h3 id="nameUser${post.id}"></h3>
               <time>${dateAndHour(date)}</time>
             </div>
                 ${image({
-                  id: `icon-variable-loker-${post.id}`,
-                  src: './pages/elementos/icones/cadeado-1.png',
-                  class: 'icon icon-left disappear',
-                })}
+      id: `icon-variable-loker-${post.id}`,
+      src: './pages/elementos/icones/cadeado-1.png',
+      class: 'icon icon-left disappear',
+    })}
           </div>
         <div class="btn-post">
           ${icon({
-            id: `edit-${post.id}`,
-            class: 'edit-btn disappear',
-            name: 'edit',
-          })}
+      id: `edit-${post.id}`,
+      class: 'edit-btn disappear',
+      name: 'edit',
+    })}
           ${icon({
-            id: `save-${post.id}`,
-            class: 'edit-btn disappear',
-            name: 'checked',
-          })}
+      id: `save-${post.id}`,
+      class: 'edit-btn disappear',
+      name: 'checked',
+    })}
           ${icon({ name: 'talher', id: post.id, class: 'disappear' })}
         </div>
         </div>
         <div class="text">
           ${textarea({
-            id: `text${post.id}`,
-            type: 'text',
-            value: `${post.data().text}`,
-            size: '500',
-            placeholder: '',
-            class: 'textarea-comment',
-          })}
+      id: `text${post.id}`,
+      type: 'text',
+      value: `${post.data().text}`,
+      size: '500',
+      placeholder: '',
+      class: 'textarea-comment',
+    })}
           ${renderImg(post.data().url_file)}
         </div>
         <hr não apagar linha divisória>
         <div class="icon-post" > 
           ${post.data().liked.length}
           ${image({
-            id: `icon-variable-like-${post.id}`,
-            class: 'icon',
-            name: 'cereja',
-            src: './pages/elementos/icones/cereja-1.png',
-          })}
+      id: `icon-variable-like-${post.id}`,
+      class: 'icon',
+      name: 'cereja',
+      src: './pages/elementos/icones/cereja-1.png',
+    })}
           ${post.data().comments.length}
           ${icon({ name: 'comentario', id: `commenter-${post.id}` })}
         </div> 
         <div id="comments${post.id}">
           ${textarea({
-            id: `comment-text${post.id}`,
-            type: 'text',
-            size: '500',
-            placeholder: 'Insira seu comentário!',
-            class: 'textarea-comment',
-          })}
+      id: `comment-text${post.id}`,
+      type: 'text',
+      size: '500',
+      placeholder: 'Insira seu comentário!',
+      class: 'textarea-comment',
+    })}
           ${icon({
-            name: 'enviar',
-            id: `send-comment-${post.id}`,
-            class: 'icon-left',
-          })}
+      name: 'enviar',
+      id: `send-comment-${post.id}`,
+      class: 'icon-left',
+    })}
           <div id="comments-list${post.id}"></div>
         </div>
       </div>`;
@@ -535,36 +535,36 @@ export default () => {
       <div  class="comment">
         <figure>
           ${image({
-            class: 'img-profile-comment',
-            alt: 'foto-usuário',
-            src: `${data.comments[i].photo}`,
-          })}
+        class: 'img-profile-comment',
+        alt: 'foto-usuário',
+        src: `${data.comments[i].photo}`,
+      })}
         </figure>
         <div class='comment-box'>
           <h3>${data.comments[i].user_name}</h3> 
           <time>${dateAndHour(date)}</time> 
           ${textarea({
-            value: `${data.comments[i].text}`,
-            id: `comment-${i}-${post.id}`,
-            size: 50,
-          })}
+        value: `${data.comments[i].text}`,
+        id: `comment-${i}-${post.id}`,
+        size: 50,
+      })}
         </div>
         <div class='icons-comment'>
           ${icon({
-            name: 'talher',
-            id: `close-${i}-${post.id}`,
-            class: 'disappear',
-          })}
+        name: 'talher',
+        id: `close-${i}-${post.id}`,
+        class: 'disappear',
+      })}
           ${icon({
-            name: 'edit',
-            id: `edit-${i}-${post.id}`,
-            class: 'disappear',
-          })}
+        name: 'edit',
+        id: `edit-${i}-${post.id}`,
+        class: 'disappear',
+      })}
           ${icon({
-            name: 'checked',
-            id: `checked-${i}-${post.id}`,
-            class: 'disappear',
-          })}
+        name: 'checked',
+        id: `checked-${i}-${post.id}`,
+        class: 'disappear',
+      })}
         </div>
 
       </div>`;

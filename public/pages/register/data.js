@@ -8,7 +8,13 @@ export const register = (user, password, printErrorLogin) => {
                     displayName: user.userName,
                 });
                 user.userUid = firebase.auth().currentUser.uid;
-                firebase.firestore().collection('users').add(user);
+                firebase.firestore().collection('users').add(user)
+                    .then(function () {
+                        window.location.hash = '#home'
+                    }).catch(function (error) {
+                        console.log(error.code);
+                        printErrorLogin(errorHandling(error.code));
+                    });
             })
             .catch(function (error) {
                 console.log(error.code);

@@ -8,8 +8,10 @@ export default () => {
   const container = document.createElement('div');
   container.classList.add('container');
 
-  container.innerHTML = `
-      ${image({ src: '/pages/elementos/imagens/IMG3.png', class: 'img-login', alt: 'logo-umâmi' })}
+  container.innerHTML =
+    `<figure>
+      ${image({ src: '/pages/elementos/imagens/IMG2.png', class: 'img-login', alt: 'logo-umâmi' })}
+    </figure>
     <div class="login">
       <h1> &lt; Umâmi &gt; </h1>
       <h2>Bem vindo!</h2>
@@ -41,7 +43,7 @@ export default () => {
     const confirmPassword = container.querySelector('#confirm-password').value;
     const error = 'As senhas não conferem.';
     password === confirmPassword ? register(user, password, printErrorLogin) : printErrorLogin(error);
-    window.location.hash = '#login';
+
   });
 
   const printErrorLogin = (answer) => {

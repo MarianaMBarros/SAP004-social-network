@@ -7,7 +7,7 @@ export const updateProfile = (profile, callback) => {
             displayName: profile.displayName,
             photoURL: profile.photoURL,
         })
-        .then(function() {
+        .then(function () {
             updatePostsUser(profile.uid, profile.displayName, callback);
         });
 };
@@ -18,8 +18,8 @@ export const updatePostsUser = (userId, name, callback) => {
         .collection('posts')
         .where('user_id', '==', userId)
         .get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
                 firebase.firestore().collection('posts').doc(doc.id).update({
                     name: name,
                 });
@@ -31,14 +31,14 @@ export const updatePostsUser = (userId, name, callback) => {
 export const fileProfile = (file, name, callback) => {
     const ref = firebase.storage().ref();
     const fileProfile = ref.child(name);
-    fileProfile.put(file).then(function() {
+    fileProfile.put(file).then(function () {
         callback(fileProfile.fullPath);
     });
 };
 
 export const deleteAccount = (userId, callback) => {
     const user = firebase.auth().currentUser;
-    user.delete().then(function() {
+    user.delete().then(function () {
         deletePostsUser(user.uid, callback);
         userDelete(userId);
     });
@@ -50,8 +50,8 @@ export const deletePostsUser = (userId, callback) => {
         .collection('posts')
         .where('user_id', '==', userId)
         .get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
                 firebase.firestore().collection('posts').doc(doc.id).delete();
             });
             callback();
@@ -111,8 +111,10 @@ export const logout = () => {
 };
 
 export const isLogin = () => {
-    if (!firebase.auth().currentUser) {
-        window.location.hash = '#';
-        window.location.reload();
-    }
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+            window.location.hash = '#';
+            // window.location.reload();
+        }
+    });
 };

@@ -1,10 +1,12 @@
 export const logout = () => firebase.auth().signOut();
 
 export const isLogin = () => {
-    if (!firebase.auth().currentUser) {
-        window.location.hash = '#';
-        window.location.reload();
-    }
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+            window.location.hash = 'home';
+            // window.location.reload();
+        }
+    });
 };
 export const loadPost = (
     clearPost,
@@ -66,10 +68,10 @@ export const postDelete = (post) => {
         .collection('posts')
         .doc(post)
         .delete()
-        .then(function() {
+        .then(function () {
             console.log('Document successfully deleted!');
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error('Error removing document: ', error);
         });
 };
@@ -81,7 +83,7 @@ export const createPost = (post) => {
 export const filePost = (file, name, callback, privacy) => {
     const ref = firebase.storage().ref();
     const filePostar = ref.child(name);
-    filePostar.put(file).then(function(snapshot) {
+    filePostar.put(file).then(function (snapshot) {
         callback(filePostar.fullPath, privacy);
     });
 };

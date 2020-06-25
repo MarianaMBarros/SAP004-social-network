@@ -1,10 +1,12 @@
-import { login, loginGoogle } from './data.js';
+import { login, loginGoogle, } from './data.js';
 import { button } from '../elementos/objetos/button.js';
 import { input } from '../elementos/objetos/input.js';
 import { link } from '../elementos/objetos/link.js';
 import { image } from '../elementos/objetos/image.js';
 
+
 export default () => {
+
     const container = document.createElement('div');
     container.classList.add('container');
 
@@ -21,17 +23,17 @@ export default () => {
 				<div id="error" class="error"></div>
 				<p>Entrar com Google</p>
 				${input({
-          type: 'image',
-          src: './pages/elementos/icones/icon-google-32.png',
-          id: 'gmailBtn',
-          class: 'icon-google',
-        })}
+        type: 'image',
+        src: './pages/elementos/icones/icon-google-32.png',
+        id: 'gmailBtn',
+        class: 'icon-google',
+    })}
 				<p>Não tem uma conta? ${link({
-          href: '#register',
-          name: 'Cadastre-se',
-          title: 'cadastre-se',
-          target: '_self',
-        })}</p>
+        href: '#register',
+        name: 'Cadastre-se',
+        title: 'cadastre-se',
+        target: '_self',
+    })}</p>
 			</div>`;
 
     container.querySelector('#login-email').addEventListener('submit', (event) => {
